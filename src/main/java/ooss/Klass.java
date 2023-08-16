@@ -44,7 +44,7 @@ public class Klass {
         if (hasStudent(student)) {
             leader = student;
         } else {
-            System.out.println("Student is not in this class.");
+            System.out.println("It is not one of us.");
         }
     }
 
