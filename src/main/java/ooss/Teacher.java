@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 public class Teacher extends Person {
     private final String name;
 
-    private List<Klass> assignedClasses = new ArrayList<>();
+    private final List<Klass> assignedClasses = new ArrayList<>();
 
     public Teacher(int id, String name, int age) {
         super(id, name, age);
@@ -41,7 +41,7 @@ public class Teacher extends Person {
 
         if (!assignedClasses.isEmpty()) {
             String classAssigned = assignedClasses.stream()
-                    .map(klass -> "" + klass.getClassId())
+                    .map(klass -> String.valueOf(klass.getClassId()))
                     .collect(Collectors.joining(", "));
 
             teacherSpeech += " I teach Class " + classAssigned + ".";
