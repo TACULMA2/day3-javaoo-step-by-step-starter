@@ -22,6 +22,7 @@ public class Student extends Person {
 
     public void join(Klass klass) {
         enrolledClass = klass;
+        klass.addStudent(this);
     }
 
     public boolean isIn(Klass klass) {
