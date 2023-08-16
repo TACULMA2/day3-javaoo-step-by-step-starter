@@ -47,4 +47,8 @@ public class Teacher extends Person {
         }
         return false;
     }
+
+    public String getName() {
+        return name;
+    }
 }

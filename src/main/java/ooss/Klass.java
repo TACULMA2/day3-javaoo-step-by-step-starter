@@ -7,6 +7,7 @@ import java.util.Objects;
 public class Klass {
     private int classId;
     private Student leader;
+    private Teacher teacher;
 
     private List<Student> students = new ArrayList<>();
 
@@ -41,8 +42,17 @@ public class Klass {
     }
 
     public void assignLeader(Student student) {
-        if (hasStudent(student)) {
-            leader = student;
+//        if (hasStudent(student)) {
+//            leader = student;
+//        } else {
+//            System.out.println("It is not one of us.");
+//        }
+        if (students.contains(student)) {
+            if (teacher != null) {
+                System.out.println("I am " + teacher.getName() + ", teacher of Class " + getClassId() + ". I know " + student.getName() + " become Leader.");
+            } else {
+                System.out.println("I am a student of Class " + getClassId() + ". I know " + student.getName() + " become Leader.");
+            }
         } else {
             System.out.println("It is not one of us.");
         }
@@ -50,5 +60,12 @@ public class Klass {
 
     public boolean isLeader(Student student) {
         return student.equals(leader);
+    }
+
+    public void attach(Teacher teacher) {
+        this.teacher = teacher;
+    }
+    public Teacher getTeacher() {
+        return teacher;
     }
 }

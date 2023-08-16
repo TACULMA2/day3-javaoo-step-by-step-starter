@@ -17,14 +17,11 @@ public class Student extends Person {
     @Override
     public String introduce() {
         String classAttendance = enrolledClass != null ? " I am in class " + enrolledClass.getClassId() + "." : "";
-
-        String introduction = super.introduce() + " I am a student.";
-
         if (enrolledClass != null && enrolledClass.isLeader(this)) {
-            introduction += " I am the leader of class " + enrolledClass.getClassId() + ".";
+            return super.introduce() + " I am a student. I am the leader of class " + enrolledClass.getClassId() + ".";
+        } else {
+            return super.introduce() + " I am a student." + classAttendance;
         }
-
-        return introduction;
     }
 
     public void join(Klass klass) {
@@ -34,5 +31,9 @@ public class Student extends Person {
 
     public boolean isIn(Klass klass) {
         return enrolledClass != null && enrolledClass.equals(klass);
+    }
+
+    public String getName() {
+        return name;
     }
 }
