@@ -8,7 +8,6 @@ public class Teacher extends Person {
     private final int age;
     private final String name;
     private final int id;
-//    private Klass assignedClass;
 
     private List<Klass> assignedClasses = new ArrayList<>();
     public Teacher(int id, String name, int age) {
@@ -24,10 +23,10 @@ public class Teacher extends Person {
 
         if(!assignedClasses.isEmpty()) {
             String classAssigned = assignedClasses.stream()
-                    .map(klass -> "Class " + klass.getClassId())
+                    .map(klass -> "" + klass.getClassId())
                     .collect(Collectors.joining(", "));
 
-            teacherSpeech += " I teach " + classAssigned + ".";
+            teacherSpeech += " I teach Class " + classAssigned + ".";
         }
         return teacherSpeech;
     }
@@ -37,7 +36,6 @@ public class Teacher extends Person {
     }
 
     public boolean belongsTo(Klass klass) {
-//        return assignedClass != null && assignedClass.equals(klass);
         return assignedClasses.contains(klass);
     }
 }
