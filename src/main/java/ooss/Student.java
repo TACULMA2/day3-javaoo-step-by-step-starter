@@ -17,7 +17,14 @@ public class Student extends Person {
     @Override
     public String introduce() {
         String classAttendance = enrolledClass != null ? " I am in class " + enrolledClass.getClassId() + "." : "";
-        return super.introduce() + " I am a student." + classAttendance;
+
+        String introduction = super.introduce() + " I am a student.";
+
+        if (enrolledClass != null && enrolledClass.isLeader(this)) {
+            introduction += " I am the leader of class " + enrolledClass.getClassId() + ".";
+        }
+
+        return introduction;
     }
 
     public void join(Klass klass) {
