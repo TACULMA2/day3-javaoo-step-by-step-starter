@@ -6,6 +6,7 @@ import java.util.Objects;
 
 public class Klass {
     private int classId;
+    private Student leader;
 
     private List<Student> students = new ArrayList<>();
 
@@ -37,5 +38,17 @@ public class Klass {
 
     public boolean hasStudent(Student student) {
         return students.contains(student);
+    }
+
+    public void assignLeader(Student student) {
+        if (hasStudent(student)) {
+            leader = student;
+        } else {
+            System.out.println("Student is not in this class.");
+        }
+    }
+
+    public boolean isLeader(Student student) {
+        return student.equals(leader);
     }
 }
