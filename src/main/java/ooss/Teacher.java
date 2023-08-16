@@ -2,6 +2,7 @@ package ooss;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Teacher extends Person {
     private final int age;
@@ -19,7 +20,16 @@ public class Teacher extends Person {
 
     @Override
     public String introduce() {
-        return super.introduce() + " I am a teacher.";
+         String teacherSpeech = super.introduce() + " I am a teacher.";
+
+        if(!assignedClasses.isEmpty()) {
+            String classAssigned = assignedClasses.stream()
+                    .map(klass -> "Class " + klass.getClassId())
+                    .collect(Collectors.joining(", "));
+
+            teacherSpeech += " I teach " + classAssigned + ".";
+        }
+        return teacherSpeech;
     }
 
     public void assignTo(Klass klass) {
