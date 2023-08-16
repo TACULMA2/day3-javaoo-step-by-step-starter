@@ -5,11 +5,11 @@ import java.util.List;
 import java.util.Objects;
 
 public class Klass {
-    private int classId;
+    private final int classId;
     private Student leader;
     private Teacher teacher;
 
-    private List<Student> students = new ArrayList<>();
+    private final List<Student> students = new ArrayList<>();
 
 
     public Klass(int classId) {
@@ -22,6 +22,10 @@ public class Klass {
 
     public void addStudent(Student student) {
         students.add(student);
+    }
+
+    public boolean hasStudent(Student student) {
+        return students.contains(student);
     }
 
     @Override
@@ -37,35 +41,41 @@ public class Klass {
         return Objects.hash(classId);
     }
 
-    public boolean hasStudent(Student student) {
-        return students.contains(student);
-    }
-
     public void assignLeader(Student student) {
-//        if (hasStudent(student)) {
-//            leader = student;
-//        } else {
-//            System.out.println("It is not one of us.");
-//        }
         if (students.contains(student)) {
-            if (teacher != null) {
-                System.out.println("I am " + teacher.getName() + ", teacher of Class " + getClassId() + ". I know " + student.getName() + " become Leader.");
-            } else {
-                System.out.println("I am a student of Class " + getClassId() + ". I know " + student.getName() + " become Leader.");
-            }
+            String studentInClass = students.stream()
+                    .filter(s -> s.equals(student))
+                    .findFirst()
+                    .map(Student::getName)
+                    .orElse("Unknown");
+
+            String message = (teacher != null)
+                    ? "I am " + teacher.getName() + ", teacher of Class " + getClassId() + ". I know " + student.getName() + " become Leader."
+                    : "I am " + studentInClass + ", student of Class " + getClassId() + ". I know " + student.getName() + " become Leader.";
+
+            System.out.println(message);
+            leader = student;
         } else {
             System.out.println("It is not one of us.");
         }
     }
 
     public boolean isLeader(Student student) {
-        return student.equals(leader);
+        return leader != null && leader.equals(student);
     }
 
-    public void attach(Teacher teacher) {
-        this.teacher = teacher;
+    public void attach(Object teacherOrStudent) {
+        if (teacherOrStudent instanceof Teacher) {
+            this.teacher = (Teacher) teacherOrStudent;
+        } else if (teacherOrStudent instanceof Student) {
+            this.students.add((Student) teacherOrStudent);
+        } else {
+            System.out.println("Invalid attachment.");
+        }
     }
+
     public Teacher getTeacher() {
         return teacher;
     }
+
 }
