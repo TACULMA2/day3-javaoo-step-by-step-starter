@@ -38,4 +38,13 @@ public class Teacher extends Person {
     public boolean belongsTo(Klass klass) {
         return assignedClasses.contains(klass);
     }
+
+    public boolean isTeaching(Student student) {
+        for (Klass klass : assignedClasses) {
+            if (klass.hasStudent(student)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

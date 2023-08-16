@@ -1,9 +1,14 @@
 package ooss;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Klass {
     private int classId;
+
+    private List<Student> students = new ArrayList<>();
+
 
     public Klass(int classId) {
         this.classId = classId;
@@ -24,5 +29,9 @@ public class Klass {
     @Override
     public int hashCode() {
         return Objects.hash(classId);
+    }
+
+    public boolean hasStudent(Student student) {
+        return students.contains(student);
     }
 }
