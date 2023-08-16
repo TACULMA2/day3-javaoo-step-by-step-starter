@@ -1,10 +1,15 @@
 package ooss;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Teacher extends Person {
     private final int age;
     private final String name;
     private final int id;
-    private Klass assignedClass;
+//    private Klass assignedClass;
+
+    private List<Klass> assignedClasses = new ArrayList<>();
     public Teacher(int id, String name, int age) {
         super(id, name, age);
         this.name = name;
@@ -18,10 +23,11 @@ public class Teacher extends Person {
     }
 
     public void assignTo(Klass klass) {
-        assignedClass = klass;
+        assignedClasses.add(klass);
     }
 
     public boolean belongsTo(Klass klass) {
-        return assignedClass != null && assignedClass.equals(klass);
+//        return assignedClass != null && assignedClass.equals(klass);
+        return assignedClasses.contains(klass);
     }
 }
