@@ -9,6 +9,10 @@ public class Klass {
         this.classId = classId;
     }
 
+    public int getClassId() {
+        return classId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -5,6 +5,7 @@ public class Student extends Person {
     private final String name;
     private final int id;
     private Klass enrolledClass;
+    private int classId;
 
     public Student(int id, String name, int age) {
         super(id, name, age);
@@ -15,7 +16,8 @@ public class Student extends Person {
 
     @Override
     public String introduce() {
-        return super.introduce() + " I am a student.";
+        String classAttendance = enrolledClass != null ? " I am in class " + enrolledClass.getClassId() + "." : "";
+        return super.introduce() + " I am a student." + classAttendance;
     }
 
     public void join(Klass klass) {
