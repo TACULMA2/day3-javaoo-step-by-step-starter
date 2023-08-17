@@ -11,7 +11,6 @@ public class Klass {
 
     private final List<Student> students = new ArrayList<>();
 
-
     public Klass(int classId) {
         this.classId = classId;
     }
@@ -28,6 +27,52 @@ public class Klass {
         return students.contains(student);
     }
 
+    public void assignLeader(Student student) {
+        if (students.contains(student)) {
+            String message = createLeaderAssignmentMessage(student);
+            System.out.println(message);
+            leader = student;
+        } else {
+            System.out.println("It is not one of us.");
+        }
+    }
+
+    private String createLeaderAssignmentMessage(Student student) {
+        String studentInClass = students.stream()
+                .filter(s -> s.equals(student))
+                .findFirst()
+                .map(Student::getName)
+                .orElse("Unknown");
+
+        String roleDescription = (teacher != null)
+                ? "teacher of Class " + getClassId()
+                : "student of Class " + getClassId();
+
+        return "I am " + getRoleDescription(studentInClass, roleDescription) + ". I know " + student.getName() + " become Leader.";
+    }
+
+    private String getRoleDescription(String studentInClass, String roleDescription) {
+        return (teacher != null) ? teacher.getName() + ", " + roleDescription : studentInClass + ", " + roleDescription;
+    }
+
+    public boolean isLeader(Student student) {
+        return leader != null && leader.equals(student);
+    }
+
+    public void attach(Object person) {
+        if (person instanceof Teacher) {
+            this.teacher = (Teacher) person;
+        } else if (person instanceof Student) {
+            this.students.add((Student) person);
+        } else {
+            System.out.println("Invalid attachment.");
+        }
+    }
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -39,43 +84,6 @@ public class Klass {
     @Override
     public int hashCode() {
         return Objects.hash(classId);
-    }
-
-    public void assignLeader(Student student) {
-        if (students.contains(student)) {
-            String studentInClass = students.stream()
-                    .filter(s -> s.equals(student))
-                    .findFirst()
-                    .map(Student::getName)
-                    .orElse("Unknown");
-
-            String message = (teacher != null)
-                    ? "I am " + teacher.getName() + ", teacher of Class " + getClassId() + ". I know " + student.getName() + " become Leader."
-                    : "I am " + studentInClass + ", student of Class " + getClassId() + ". I know " + student.getName() + " become Leader.";
-
-            System.out.println(message);
-            leader = student;
-        } else {
-            System.out.println("It is not one of us.");
-        }
-    }
-
-    public boolean isLeader(Student student) {
-        return leader != null && leader.equals(student);
-    }
-
-    public void attach(Object teacherOrStudent) {
-        if (teacherOrStudent instanceof Teacher) {
-            this.teacher = (Teacher) teacherOrStudent;
-        } else if (teacherOrStudent instanceof Student) {
-            this.students.add((Student) teacherOrStudent);
-        } else {
-            System.out.println("Invalid attachment.");
-        }
-    }
-
-    public Teacher getTeacher() {
-        return teacher;
     }
 
 }

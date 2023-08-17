@@ -23,19 +23,14 @@ public class Teacher extends Person {
     }
 
     public boolean isTeaching(Student student) {
-        for (Klass klass : assignedClasses) {
-            if (klass.hasStudent(student)) {
-                return true;
-            }
-        }
-        return false;
+        return assignedClasses.stream()
+                .anyMatch(klass -> klass.hasStudent(student));
     }
 
     public String getName() {
         return name;
     }
 
-    @Override
     public String introduce() {
         String teacherSpeech = super.introduce() + " I am a teacher.";
 

@@ -3,7 +3,6 @@ package ooss;
 public class Student extends Person {
     private final String name;
     private Klass enrolledClass;
-    private int classId;
 
     public Student(int id, String name, int age) {
         super(id, name, age);
@@ -23,13 +22,16 @@ public class Student extends Person {
         return name;
     }
 
-    @Override
     public String introduce() {
+        StringBuilder introduction = new StringBuilder(super.introduce());
         String classAttendance = enrolledClass != null ? " I am in class " + enrolledClass.getClassId() + "." : "";
+
         if (enrolledClass != null && enrolledClass.isLeader(this)) {
-            return super.introduce() + " I am a student. I am the leader of class " + enrolledClass.getClassId() + ".";
+            introduction.append(" I am a student. I am the leader of class ").append(enrolledClass.getClassId()).append(".");
         } else {
-            return super.introduce() + " I am a student." + classAttendance;
+            introduction.append(" I am a student.").append(classAttendance);
         }
+        return introduction.toString();
     }
+
 }
